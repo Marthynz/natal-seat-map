@@ -5,6 +5,172 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Peta Kursi Natal Tahunan</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      color: #333;
+      margin: 2rem;
+    }
+
+    h1 {
+      color: #006400;
+      font-size: 1.8rem;
+    }
+
+    .stage {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .stage-img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Struktur peta kursi */
+    .seat-map {
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      margin-top: 2rem;
+      flex-wrap: wrap; /* agar kolom bisa turun jika layar kecil */
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Kursi VIP di tengah */
+    .vip-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .vip-seat {
+      width: 40px;
+      height: 40px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      flex-wrap: wrap; /* agar kursi bisa turun di mobile */
+    }
+
+    .row-label {
+      width: 80px;
+      text-align: right;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .seat {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      cursor: default;
+    }
+
+    .selected {
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Info kursi di bawah */
+    .seat-info {
+      margin-top: 2rem;
+      font-weight: bold;
+      background-color: #fff8dc;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 768px) {
+      body {
+        margin: 1rem;
+      }
+
+      .stage-img {
+        max-width: 300px;
+      }
+
+      .seat-map {
+        gap: 40px;
+      }
+
+      .vip-seat {
+        width: 30px;
+        height: 30px;
+      }
+
+      .seat {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+      }
+
+      .row-label {
+        width: 60px;
+        font-size: 12px;
+      }
+
+      .seat-info {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .seat-map {
+        gap: 20px;
+      }
+
+      .vip-seat {
+        width: 25px;
+        height: 25px;
+      }
+
+      .seat {
+        width: 20px;
+        height: 20px;
+        font-size: 9px;
+      }
+
+      .row-label {
+        width: 50px;
+        font-size: 11px;
+      }
+
+      .seat-info {
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Peta Kursi Natal Tahunan 🎄</h1>
@@ -20,6 +186,70 @@
   <!-- Info kursi (dipindah ke bawah) -->
   <div id="seat-info" class="seat-info"></div>
 
-  <script src="script.js"></script>
+  <script>
+    // Ambil parameter dari URL
+    const params = new URLSearchParams(window.location.search);
+    const seatCode = params.get("seat"); // Contoh: B-3-8
+
+    // Elemen tampilan
+    const seatInfo = document.getElementById("seat-info");
+    const seatMap = document.getElementById("seat-map");
+
+    // Ubah format tampilan: B-3-8 -> B3-8
+    const displaySeat = seatCode ? seatCode.replace("-", "") : null;
+
+    // Tampilkan info kursi
+    if (seatCode) {
+      seatInfo.textContent = `Nomor kursi Anda: ${displaySeat}`;
+    } else {
+      seatInfo.textContent = "Silakan pindai QR untuk melihat posisi kursi Anda.";
+    }
+
+    // Generate peta kursi
+    ["A", "B"].forEach((column) => {
+      const colDiv = document.createElement("div");
+      colDiv.classList.add("column");
+
+      // Tambahkan barisan kursi VIP di atas sebelum baris reguler
+      const vipRow = document.createElement("div");
+      vipRow.classList.add("vip-row");
+
+      for (let v = 1; v <= 5; v++) {
+        const vipSeat = document.createElement("img");
+        vipSeat.src = "img/kursi_vip.png";
+        vipSeat.alt = "Kursi VIP";
+        vipSeat.classList.add("vip-seat");
+        vipRow.appendChild(vipSeat);
+      }
+
+      colDiv.appendChild(vipRow);
+
+      // Barisan kursi reguler
+      for (let row = 1; row <= 5; row++) {
+        const rowDiv = document.createElement("div");
+        rowDiv.classList.add("row");
+
+        const labelDiv = document.createElement("div");
+        labelDiv.classList.add("row-label");
+        labelDiv.textContent = `${column}${row}`;
+        rowDiv.appendChild(labelDiv);
+
+        for (let num = 1; num <= 10; num++) {
+          const seatDiv = document.createElement("div");
+          seatDiv.classList.add("seat");
+          seatDiv.textContent = num;
+
+          const code = `${column}-${row}-${num}`;
+          if (code === seatCode) seatDiv.classList.add("selected");
+
+          rowDiv.appendChild(seatDiv);
+        }
+
+        colDiv.appendChild(rowDiv);
+      }
+
+      seatMap.appendChild(colDiv);
+    });
+  </script>
 </body>
 </html>

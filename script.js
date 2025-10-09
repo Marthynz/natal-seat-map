@@ -22,6 +22,13 @@ if (seatCode) {
     const rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
 
+    // Tambahkan label kolom di samping baris
+    const labelDiv = document.createElement("div");
+    labelDiv.classList.add("row-label");
+    labelDiv.textContent = `${column}${row}`;
+    rowDiv.appendChild(labelDiv);
+
+    // Buat kursi per baris
     for (let num = 1; num <= 10; num++) {
       const seatDiv = document.createElement("div");
       seatDiv.classList.add("seat");

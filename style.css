@@ -60,3 +60,17 @@ h1 {
   color: white;
   font-weight: bold;
 }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.row-label {
+  width: 80px;
+  text-align: right;
+  font-weight: bold;
+  color: #444;
+}

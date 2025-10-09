@@ -18,17 +18,32 @@ if (seatCode) {
   const colDiv = document.createElement("div");
   colDiv.classList.add("column");
 
+  // Tambahkan barisan kursi VIP di atas sebelum baris reguler
+  const vipRow = document.createElement("div");
+  vipRow.classList.add("vip-row");
+
+  for (let v = 1; v <= 5; v++) {
+    const vipSeat = document.createElement("img");
+    vipSeat.src = "img/kursi_vip.png";
+    vipSeat.alt = "Kursi VIP";
+    vipSeat.classList.add("vip-seat");
+    vipRow.appendChild(vipSeat);
+  }
+
+  colDiv.appendChild(vipRow);
+
+  // Barisan kursi reguler
   for (let row = 1; row <= 5; row++) {
     const rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
 
-    // Tambahkan label kolom di samping baris
+    // Label kolom dan baris (contoh: A1, B3)
     const labelDiv = document.createElement("div");
     labelDiv.classList.add("row-label");
     labelDiv.textContent = `${column}${row}`;
     rowDiv.appendChild(labelDiv);
 
-    // Buat kursi per baris
+    // Kursi reguler
     for (let num = 1; num <= 10; num++) {
       const seatDiv = document.createElement("div");
       seatDiv.classList.add("seat");

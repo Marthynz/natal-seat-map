@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Peta Kursi Natal Tahunan</title>
-  <link rel="stylesheet" href="style.css" />
+
   <style>
     body {
       font-family: sans-serif;
@@ -12,6 +12,31 @@
       background-color: #f0f8ff;
       color: #333;
       margin: 2rem;
+      overflow-x: hidden;
+    }
+
+    /* Efek Salju */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0.4; }
+    }
+
+    .page-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      max-width: 900px;
+      margin: auto;
     }
 
     h1 {
@@ -21,23 +46,29 @@
 
     .stage {
       display: flex;
+      align-items: center;
       justify-content: center;
+      gap: 2px;
       margin: 20px 0;
     }
 
+    .tree-img {
+      width: 150px;
+      height: auto;
+    }
+
     .stage-img {
-      max-width: 400px;
+      max-width: 200px;
       width: 100%;
       height: auto;
     }
 
-    /* Struktur peta kursi */
     .seat-map {
       display: flex;
       justify-content: center;
       gap: 100px;
       margin-top: 2rem;
-      flex-wrap: wrap; /* agar kolom bisa turun jika layar kecil */
+      flex-wrap: wrap;
     }
 
     .column {
@@ -47,29 +78,16 @@
       gap: 20px;
     }
 
-    /* Kursi VIP di tengah */
-    .vip-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .vip-seat {
-      width: 40px;
-      height: 40px;
-    }
-
     .row {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 5px;
-      flex-wrap: wrap; /* agar kursi bisa turun di mobile */
+      flex-wrap: wrap;
     }
 
     .row-label {
-      width: 80px;
+      width: 30px;
       text-align: right;
       font-weight: bold;
       color: #444;
@@ -93,7 +111,35 @@
       font-weight: bold;
     }
 
-    /* Info kursi di bawah */
+    /* VIP */
+    .vip-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .vip-seat {
+      width: 33px;
+      height: 33px;
+      background-color: red;
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .vip-label {
+      width: 30px;
+      text-align: right;
+      font-weight: bold;
+      color: #b30000;
+    }
+
     .seat-info {
       margin-top: 2rem;
       font-weight: bold;
@@ -104,152 +150,175 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* ==================== RESPONSIVE ==================== */
     @media (max-width: 768px) {
-      body {
-        margin: 1rem;
-      }
-
-      .stage-img {
-        max-width: 300px;
-      }
-
-      .seat-map {
-        gap: 40px;
-      }
-
-      .vip-seat {
-        width: 30px;
-        height: 30px;
-      }
-
-      .seat {
-        width: 24px;
-        height: 24px;
-        font-size: 10px;
-      }
-
-      .row-label {
-        width: 60px;
-        font-size: 12px;
-      }
-
-      .seat-info {
-        font-size: 14px;
-        padding: 8px 16px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.4rem;
-      }
-
-      .seat-map {
-        gap: 20px;
-      }
-
-      .vip-seat {
-        width: 25px;
-        height: 25px;
-      }
-
-      .seat {
-        width: 20px;
-        height: 20px;
-        font-size: 9px;
-      }
-
-      .row-label {
-        width: 50px;
-        font-size: 11px;
-      }
-
-      .seat-info {
-        font-size: 13px;
-        padding: 6px 12px;
-      }
+      body { margin: 1rem; }
+      .stage-img { max-width: 200px; }
+      .tree-img { width: 80px; }
+      .seat-map { gap: 40px; }
+      .seat { width: 24px; height: 24px; font-size: 10px; }
+      .vip-seat { width: 28px; height: 28px; font-size: 9px; }
+      .row-label { width: 20px; font-size: 12px; }
     }
   </style>
 </head>
-<body>
-  <h1>Peta Kursi Natal Tahunan 🎄</h1>
 
-  <!-- Gambar panggung -->
+<body>
+<div class="page-box">
+
+  <h1>Christmas Celebration🎄</h1>
+  <h3>A Night At The Toys Store</h3>
+
   <div class="stage">
-    <img src="img/panggung.png" alt="Panggung Natal Tahunan" class="stage-img" />
+    <img src="img/tree.png" class="tree-img" alt="Pohon Natal">
+    <img src="img/panggung.png" class="stage-img" alt="Panggung Natal">
+    <img src="img/tree.png" class="tree-img" alt="Pohon Natal">
   </div>
 
-  <!-- Peta Kursi -->
   <div id="seat-map" class="seat-map"></div>
 
-  <!-- Info kursi (dipindah ke bawah) -->
   <div id="seat-info" class="seat-info"></div>
 
   <script>
-    // Ambil parameter dari URL
     const params = new URLSearchParams(window.location.search);
-    const seatCode = params.get("seat"); // Contoh: B-3-8
-
-    // Elemen tampilan
-    const seatInfo = document.getElementById("seat-info");
+    const seatParam = params.get("seat"); 
     const seatMap = document.getElementById("seat-map");
+    const seatInfo = document.getElementById("seat-info");
 
-    // Ubah format tampilan: B-3-8 -> B3-8
-    const displaySeat = seatCode ? seatCode.replace("-", "") : null;
+    const seatAssignments = {
+      // Kolom Kiri
+        // Baris A
+          "aron": ["A-left-1"],
+          "daaron": ["A-left-2", "A-left-3", "A-left-4"],
+          "patrine": ["A-left-5", "A-left-6"],
+          "kalyna": ["A-left-7", "A-left-8"],
+        // Baris B
+          "kelsey": ["B-left-1", "B-left-2", "B-left-3"],
 
-    // Tampilkan info kursi
-    if (seatCode) {
-      seatInfo.textContent = `Nomor kursi Anda: ${displaySeat}`;
-    } else {
-      seatInfo.textContent = "Silakan pindai QR untuk melihat posisi kursi Anda.";
-    }
 
-    // Generate peta kursi
-    ["A", "B"].forEach((column) => {
+
+      // Kolom Kanan
+        // Baris A
+          "saskia": ["E-right-7", "E-right-8"],
+    };
+
+    let selectedSeats = seatAssignments[seatParam] || [];
+
+    seatInfo.textContent = seatParam
+      ? `Student: ${seatParam} | Seats: ${selectedSeats.join(", ")}`
+      : "Silakan pindai QR untuk melihat posisi kursi Anda.";
+
+    const columns = ["left", "right"];
+    const rows = ["A","B","C","D","E","F","G","H"];
+    const seatsPerRow = 8;
+
+    columns.forEach(side => {
       const colDiv = document.createElement("div");
       colDiv.classList.add("column");
 
-      // Tambahkan barisan kursi VIP di atas sebelum baris reguler
+      /* === VIP BARIS === */
       const vipRow = document.createElement("div");
       vipRow.classList.add("vip-row");
 
+      const vipLabel = document.createElement("div");
+      vipLabel.classList.add("vip-label");
+      vipRow.appendChild(vipLabel);
+
       for (let v = 1; v <= 5; v++) {
-        const vipSeat = document.createElement("img");
-        vipSeat.src = "img/kursi_vip.png";
-        vipSeat.alt = "Kursi VIP";
+        const vipSeat = document.createElement("div");
         vipSeat.classList.add("vip-seat");
+        vipSeat.textContent = "VIP";
         vipRow.appendChild(vipSeat);
       }
 
       colDiv.appendChild(vipRow);
 
-      // Barisan kursi reguler
-      for (let row = 1; row <= 5; row++) {
+      /* === KURSI NORMAL === */
+      rows.forEach(row => {
         const rowDiv = document.createElement("div");
         rowDiv.classList.add("row");
 
         const labelDiv = document.createElement("div");
         labelDiv.classList.add("row-label");
-        labelDiv.textContent = `${column}${row}`;
+        labelDiv.textContent = row;
         rowDiv.appendChild(labelDiv);
 
-        for (let num = 1; num <= 10; num++) {
+        for (let s = 1; s <= seatsPerRow; s++) {
           const seatDiv = document.createElement("div");
           seatDiv.classList.add("seat");
-          seatDiv.textContent = num;
+          seatDiv.textContent = s;
 
-          const code = `${column}-${row}-${num}`;
-          if (code === seatCode) seatDiv.classList.add("selected");
+          const code = `${row}-${side}-${s}`;
+          if (selectedSeats.includes(code)) {
+            seatDiv.classList.add("selected");
+          }
 
           rowDiv.appendChild(seatDiv);
         }
 
         colDiv.appendChild(rowDiv);
-      }
+      });
 
       seatMap.appendChild(colDiv);
     });
   </script>
+
+</div>
+
+<!-- === BACKGROUND MUSIC === -->
+<audio id="bg-music" autoplay loop>
+  <source src="music/wewish.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  const bgMusic = document.getElementById("bg-music");
+  bgMusic.volume = 0.12;
+
+  const btn = document.createElement("button");
+  btn.textContent = "⏸ Pause Music";
+  btn.style.position = "fixed";
+  btn.style.bottom = "20px";
+  btn.style.right = "20px";
+  btn.style.padding = "10px 16px";
+  btn.style.border = "none";
+  btn.style.borderRadius = "10px";
+  btn.style.background = "#c62828";
+  btn.style.color = "white";
+  btn.style.cursor = "pointer";
+  btn.style.fontWeight = "bold";
+  btn.style.boxShadow = "0 4px 10px rgba(0,0,0,0.2)";
+
+  btn.onclick = () => {
+    if (bgMusic.paused) {
+      bgMusic.play();
+      btn.textContent = "⏸ Pause Music";
+    } else {
+      bgMusic.pause();
+      btn.textContent = "▶ Play Music";
+    }
+  };
+
+  document.body.appendChild(btn);
+</script>
+
+<!-- === SNOW EFFECT SCRIPT === -->
+<script>
+  function createSnow() {
+    const snow = document.createElement("div");
+    snow.classList.add("snowflake");
+    snow.textContent = "❄";
+
+    snow.style.left = Math.random() * 100 + "vw";
+    snow.style.fontSize = Math.random() * 12 + 10 + "px";
+    snow.style.animationDuration = Math.random() * 5 + 5 + "s";
+    snow.style.opacity = Math.random();
+
+    document.body.appendChild(snow);
+
+    setTimeout(() => snow.remove(), 12000);
+  }
+
+  setInterval(createSnow, 150);
+</script>
+
 </body>
 </html>

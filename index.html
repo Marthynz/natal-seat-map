@@ -292,7 +292,7 @@
     let selectedSeats = seatAssignments[seatParam] || [];
 
     seatInfo.textContent = seatParam
-      ? `Student: ${seatParam} | Seats: ${selectedSeats.join(", ")}`
+      ? `Student: ${seatParam} | Seat(s): ${selectedSeats.join(", ")}`
       : "Silakan pindai QR untuk melihat posisi kursi Anda.";
 
     const columns = ["left", "right"];

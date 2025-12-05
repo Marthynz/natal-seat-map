@@ -159,6 +159,26 @@
       .vip-seat { width: 28px; height: 28px; font-size: 9px; }
       .row-label { width: 20px; font-size: 12px; }
     }
+
+      #popup-box {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+      z-index: 9999;
+      width: 260px;
+      display: none;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 
@@ -177,6 +197,9 @@
   <div id="seat-map" class="seat-map"></div>
 
   <div id="seat-info" class="seat-info"></div>
+
+  <div id="popup-box"></div>
+
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -383,6 +406,38 @@
   }
 
   setInterval(createSnow, 150);
+
+  window.addEventListener("load", () => {
+    const params = new URLSearchParams(window.location.search);
+    const seatParam = params.get("seat");
+
+    if (!seatParam) return; // tidak tampil jika tidak scan QR
+
+    // Ambil kursi yg dipetakan
+    const seats = seatAssignments[seatParam] || [];
+
+    let side = "";
+    if (seats.length > 0) {
+      side = seats[0].includes("left") ? "Left Side" : "Right Side";
+    }
+
+    const popup = document.getElementById("popup-box");
+
+    popup.innerHTML = `
+      <h3 style="margin:0; color:#006400;">🎄 Welcome!</h3>
+      <p style="margin:6px 0 0 0; font-size:14px;"><b>Student:</b> ${seatParam}</p>
+      <p style="margin:4px 0; font-size:14px;"><b>Side:</b> ${side}</p>
+      <p style="margin:4px 0; font-size:14px;"><b>Seat(s):</b> ${seats.join(", ")}</p>
+      <p style="font-size:12px; margin-top:10px; color:#666;">Popup will close in 10 seconds...</p>
+    `;
+
+    popup.style.display = "block";
+
+    // Auto close dalam 10 detik
+    setTimeout(() => {
+      popup.style.display = "none";
+    }, 10000);
+  });
 </script>
 
 </body>
